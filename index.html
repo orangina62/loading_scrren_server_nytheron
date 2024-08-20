@@ -13,12 +13,16 @@
       href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Condensed|Ubuntu+Mono&display=swap"
       rel="stylesheet"
     />
-    <!-- <link rel="stylesheet" href="css/main.css" /> -->
     <title>Loading Screen | By Exsite</title>
   </head>
   <body>
     <div class="background"></div> 
     <div class="overhaul"></div>
+
+    <!-- Ajout du nom de la carte -->
+    <div id="mapName" style="position: absolute; top: 10px; left: 10px; font-size: 24px; color: white;">
+      Map: <span id="mapNameValue"></span>
+    </div>
 
     <div id="debug"></div>
 
@@ -41,7 +45,5 @@
         '<script src="js/main.js?' + Math.random() + '"><\/script>'
       );
     </script>
-    <!-- <script src="config.js"></script> -->
-    <!-- <script src="js/main.js"></script> -->
   </body>
 </html>
