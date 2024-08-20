@@ -1,4 +1,4 @@
-"use sctrict";
+"use strict";
 
 var isGmod = false;
 var isTest = false;
@@ -24,21 +24,21 @@ function GameDetails(
     loadAll();
   }
 
-  if (Config.title) {
+  if (Config && Config.title) {
     $("#title").html(Config.title);
   } else {
     $("#title").html(servername);
   }
   $("#title").fadeIn();
 
-  if (Config.enableMap) {
+  if (Config && Config.enableMap) {
     $("#map").append(mapname);
     $("#map").fadeIn();
   } else {
     $("#map").hide();
   }
 
-  if (Config.enableSteamID) {
+  if (Config && Config.enableSteamID) {
     $("#steamid").html(steamid);
   }
   $("#steamid").fadeIn();
@@ -118,7 +118,7 @@ function loadAll() {
   }, 10000);
 }
 function loadBackground() {
-  if (Config.backgroundImage) {
+  if (Config && Config.backgroundImage) {
     $(".background").css(
       "background-image",
       'url("images/' + Config.backgroundImage + '")'
@@ -131,7 +131,7 @@ function setLoad(percentage) {
 }
 var permanent = false;
 function announce(message, ispermanent) {
-  if (Config.enableAnnouncements && !permanent) {
+  if (Config && Config.enableAnnouncements && !permanent) {
     $("#announcement").hide();
     $("#announcement").html(message);
     $("#announcement").fadeIn();
@@ -141,7 +141,7 @@ function announce(message, ispermanent) {
   }
 }
 function debug(message) {
-  if (Config.enableDebug) {
+  if (Config && Config.enableDebug) {
     console.log(message);
     $("#debug").prepend(message + "<br>");
   }
@@ -156,6 +156,7 @@ $(document).ready(function() {
 
   // print announcement messages every few seconds
   if (
+    Config &&
     Config.announceMessages &&
     Config.enableAnnouncements &&
     Config.announcementLength
@@ -204,3 +205,11 @@ $(document).ready(function() {
     }
   }, 1000);
 });
+
+function getQueryParam(param) {
+    let urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+let mapName = getQueryParam('map') || "Unknown Map";
+document.getElementById('mapNameValue').textContent = mapName;
