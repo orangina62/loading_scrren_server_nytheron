@@ -14,12 +14,10 @@ function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemo
   debug("GameDetails called");
   isGmod = true;
   
-  // Chargement initial
   if (!isTest) {
     loadAll();
   }
 
-  // Afficher le titre du serveur
   if (Config.title) {
     $("#title").html(Config.title);
   } else {
@@ -27,18 +25,10 @@ function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemo
   }
   $("#title").fadeIn();
 
-  // Afficher le nom de la carte
   if (Config.enableMap) {
-    $("#map").append(mapname);
-    $("#map").fadeIn();
-  } else {
-    $("#map").hide();
+    $("#mapNameValue").text(mapname);
   }
 
-  // Assurez-vous que le nom de la carte est également affiché en haut à gauche
-  document.getElementById('mapNameValue').textContent = mapname;
-
-  // Afficher le SteamID si activé
   if (Config.enableSteamID) {
     $("#steamid").html(steamid);
   }
@@ -58,6 +48,11 @@ function SetFilesNeeded(needed) {
     percentage = sPercentage;
     setLoad(sPercentage);
   }
+}
+
+function setLoad(percentage) {
+  debug(percentage + "%");
+  $("#progress-bar").css("width", percentage + "%").attr("aria-valuenow", percentage);
 }
 
 var fileCount = 0;
@@ -107,7 +102,6 @@ function loadAll() {
   $("nav").fadeIn();
   $("main").fadeIn();
 
-  // first time loading if DownloadingFile isn't called after some time
   setTimeout(function() {
     debug("Checking if first time loading.. " + downloadingFileCalled);
     if (downloadingFileCalled) {
@@ -126,11 +120,6 @@ function loadBackground() {
     );
   }
 }
-function setLoad(percentage) {
-  debug(percentage + "%");
-  $(".overhaul").css("left", percentage + "%");
-}
-var permanent = false;
 function announce(message, ispermanent) {
   if (Config.enableAnnouncements && !permanent) {
     $("#announcement").hide();
@@ -148,19 +137,10 @@ function debug(message) {
   }
 }
 
-/**
- * Initial function
- */
 $(document).ready(function() {
-  // load everything in when ready
   loadBackground();
 
-  // print announcement messages every few seconds
-  if (
-    Config.announceMessages &&
-    Config.enableAnnouncements &&
-    Config.announcementLength
-  ) {
+  if (Config.announceMessages && Config.enableAnnouncements && Config.announcementLength) {
     if (Config.announceMessages.length > 0) {
       var i = 0;
       setInterval(function() {
@@ -173,7 +153,6 @@ $(document).ready(function() {
     }
   }
 
-  // if it isn't loaded by gmod load manually
   setTimeout(function() {
     if (!isGmod) {
       debug("No Garry's mod testing..");
