@@ -13,10 +13,14 @@
       href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Condensed|Ubuntu+Mono&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
     <title>Loading Screen | By Exsite</title>
   </head>
   <body>
-    <div class="background"></div> 
+    <div class="background"></div>
     <div class="overhaul"></div>
 
     <!-- Affichage du nom de la carte -->
@@ -33,10 +37,23 @@
         <div id="history"></div>
       </div>
       <div class="under-nav"></div>
-      <div class="loading-box"></div>
+      <div class="loading-box">
+        <div class="progress">
+          <div
+            id="progress-bar"
+            class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+            role="progressbar"
+            style="width: 0%"
+            aria-valuenow="0"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
     </main>
 
-    <script src="js/lib/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       document.write(
         '<script src="js/config.js?' + Math.random() + '"><\/script>'
