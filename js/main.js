@@ -10,35 +10,36 @@ var percentage = 0;
 /**
  * Gmod Called functions
  */
-function GameDetails(
-  servername,
-  serverurl,
-  mapname,
-  maxplayers,
-  steamid,
-  gamemode
-) {
+function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
   debug("GameDetails called");
   isGmod = true;
+  
+  // Chargement initial
   if (!isTest) {
     loadAll();
   }
 
-  if (Config && Config.title) {
+  // Afficher le titre du serveur
+  if (Config.title) {
     $("#title").html(Config.title);
   } else {
     $("#title").html(servername);
   }
   $("#title").fadeIn();
 
-  if (Config && Config.enableMap) {
+  // Afficher le nom de la carte
+  if (Config.enableMap) {
     $("#map").append(mapname);
     $("#map").fadeIn();
   } else {
     $("#map").hide();
   }
 
-  if (Config && Config.enableSteamID) {
+  // Assurez-vous que le nom de la carte est également affiché en haut à gauche
+  document.getElementById('mapNameValue').textContent = mapname;
+
+  // Afficher le SteamID si activé
+  if (Config.enableSteamID) {
     $("#steamid").html(steamid);
   }
   $("#steamid").fadeIn();
@@ -118,7 +119,7 @@ function loadAll() {
   }, 10000);
 }
 function loadBackground() {
-  if (Config && Config.backgroundImage) {
+  if (Config.backgroundImage) {
     $(".background").css(
       "background-image",
       'url("images/' + Config.backgroundImage + '")'
@@ -131,7 +132,7 @@ function setLoad(percentage) {
 }
 var permanent = false;
 function announce(message, ispermanent) {
-  if (Config && Config.enableAnnouncements && !permanent) {
+  if (Config.enableAnnouncements && !permanent) {
     $("#announcement").hide();
     $("#announcement").html(message);
     $("#announcement").fadeIn();
@@ -141,7 +142,7 @@ function announce(message, ispermanent) {
   }
 }
 function debug(message) {
-  if (Config && Config.enableDebug) {
+  if (Config.enableDebug) {
     console.log(message);
     $("#debug").prepend(message + "<br>");
   }
@@ -156,7 +157,6 @@ $(document).ready(function() {
 
   // print announcement messages every few seconds
   if (
-    Config &&
     Config.announceMessages &&
     Config.enableAnnouncements &&
     Config.announcementLength
@@ -205,11 +205,3 @@ $(document).ready(function() {
     }
   }, 1000);
 });
-
-function getQueryParam(param) {
-    let urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
-
-let mapName = getQueryParam('map') || "Unknown Map";
-document.getElementById('mapNameValue').textContent = mapName;
