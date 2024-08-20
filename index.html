@@ -17,13 +17,21 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
+    <style>
+      .loading-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+      }
+    </style>
     <title>Loading Screen | By Exsite</title>
   </head>
   <body>
     <div class="background"></div>
     <div class="overhaul"></div>
 
-    <!-- Affichage du nom de la carte -->
     <div id="mapName" style="position: absolute; top: 10px; left: 10px; font-size: 24px; color: white;">
       Map: <span id="mapNameValue"></span>
     </div>
@@ -34,9 +42,9 @@
       <div class="title">
         <h2>Bienvenu sur,</h2>
         <h1 id="title"></h1>
+        <div id="history"></div>
       </div>
-      
-      <!-- Barre de progression centrée -->
+      <div class="under-nav"></div>
       <div class="loading-box">
         <div class="progress">
           <div
@@ -50,9 +58,6 @@
           ></div>
         </div>
       </div>
-
-      <!-- Fichiers en cours de chargement -->
-      <div id="history"></div>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -67,4 +72,3 @@
     </script>
   </body>
 </html>
- 
