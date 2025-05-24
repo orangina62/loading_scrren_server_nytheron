@@ -1,14 +1,93 @@
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Ubuntu',sans-serif;background:#000;color:#fff;height:100vh;overflow:hidden}
-.background{position:absolute;top:0;left:0;width:100%;height:100%;background-size:cover;background-position:center;filter:blur(8px);transform:scale(1.1)}
-.overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6)}
-.wrapper{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 2vw}
-.title h2{font-weight:400;font-size:1.5rem;letter-spacing:2px}
-.title h1{font-weight:700;font-size:3rem;margin:.2rem 0 1rem;word-break:break-word}
-.history{max-height:120px;overflow:hidden;font-size:.9rem}
-.history-item{opacity:1;transition:opacity .4s}
-.progress{width:60%;max-width:700px;height:12px;border:1px solid #fff;border-radius:6px;overflow:hidden;margin-top:1.5rem}
-.progress-bar{height:100%;width:0;background:#0d6efd;transition:width .2s}
-.announcement{position:absolute;bottom:10%;left:50%;transform:translateX(-50%);font-size:1.2rem;opacity:0;transition:opacity .5s}
-.map{position:absolute;top:2%;left:2%;font-size:1rem}
-.debug{position:absolute;top:2%;right:2%;font-size:.8rem;text-align:right;max-width:30vw;overflow:hidden}
+body {
+  font-family: "Ubuntu Mono", "Arial";
+  margin: 0;
+  color: white;
+  background-color: black;
+}
+
+nav,
+main {
+  display: none;
+}
+
+h2 {
+  font-size: 1.5em;
+  color: rgb(250, 250, 250);
+  margin: 0;
+}
+
+h1 {
+  margin-top: 10px;
+  top: 40%;
+   color: rgb(250, 250, 250);
+}
+
+#title,
+#map,
+#steamid {
+  display: none;
+}
+
+#steamid {
+  float: right;
+}
+
+#announcement {
+  position: absolute;
+  width: 98%;
+  text-align: center;
+}
+
+#history {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 150%;
+  color: rgb(240, 240, 240);
+  text-shadow: none;
+}
+
+.background {
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-image: url("../images/default.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.overhaul {
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  transition-duration: 1s;
+}
+
+.title {
+  text-align: center;
+  top: 40%;
+  width: 100%;
+  position: absolute;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.under-nav {
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  width: 70%;
+  height: 3%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.loading-box {
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  width: 30%;
+  height: 15%;
+  background-color: rgba(0, 0, 0, 0);
+}
