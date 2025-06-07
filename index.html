@@ -9,47 +9,41 @@
         '<link rel="stylesheet" href="css/main.css?' + Math.random() + '">'
       );
     </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Condensed|Ubuntu+Mono&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <style>
-      .loading-box {
-        position: absolute;
-        top: 58%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 60%;
-      }
-    </style>
+    <link rel="icon" href="images/favicon.ico" />
+    <meta name="description" content="Custom Garry's Mod loading screen" />
+    <meta property="og:title" content="Loading Screen" />
+    <meta property="og:description" content="Custom Garry's Mod loading screen" />
+    <meta property="og:image" content="images/default.png" />
     <title>Loading Screen | By Exsite</title>
   </head>
-  <body>
+  <body class="font-[Inter] bg-gray-900 text-white min-h-screen relative overflow-hidden">
     <div class="background"></div>
     <div class="overhaul"></div>
 
-    <div id="mapName" style="position: absolute; top: 30px; left: 30px; font-size: 24px; color: white;">
+    <div id="mapName" class="absolute top-8 left-8 text-xl">
       Map: <span id="mapNameValue"></span>
     </div>
 
     <div id="debug"></div>
 
-    <main>
-      <div class="title">
-        <h2>Bienvenu sur,</h2>
-        <h1 id="title"></h1>
+    <main class="flex flex-col items-center justify-center min-h-screen space-y-6 relative z-10">
+      <div class="title mb-6 space-y-2 text-center">
+        <h2 class="text-2xl font-semibold animate-fade-in">Bienvenu sur,</h2>
+        <h1 id="title" class="text-5xl font-extrabold"></h1>
         <div id="history"></div>
       </div>
-      <div class="under-nav"></div>
-      <div class="loading-box">
-        <div class="progress">
+      <div class="loading-box w-3/4 md:w-1/2">
+        <div class="w-full bg-gray-700 rounded-2xl shadow-xl overflow-hidden">
           <div
             id="progress-bar"
-            class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+            class="h-4 bg-blue-500 transition-all"
             role="progressbar"
             style="width: 0%"
             aria-valuenow="0"
@@ -61,7 +55,6 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       document.write(
         '<script src="js/config.js?' + Math.random() + '"><\/script>'
