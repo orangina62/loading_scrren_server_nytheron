@@ -47,6 +47,88 @@ h1 {
   text-shadow: none;
 }
 
+.background {
+  z-index: -3;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-image: url("../images/default.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+}
+
+.shape.one {
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle at 30% 30%, #60a5fa, transparent 70%);
+  top: -10%;
+  left: -10%;
+  animation: move1 30s linear infinite alternate;
+}
+
+.shape.two {
+  width: 30vw;
+  height: 30vw;
+  background: radial-gradient(circle at 70% 70%, #a855f7, transparent 70%);
+  bottom: -20%;
+  right: -15%;
+  animation: move2 35s linear infinite alternate;
+}
+
+.shape.three {
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle at 50% 50%, #ec4899, transparent 70%);
+  top: 20%;
+  right: -25%;
+  animation: move3 40s linear infinite alternate;
+}
+
+@keyframes move1 {
+  from {
+    transform: translate(-20%, -20%);
+  }
+  to {
+    transform: translate(20%, 20%);
+  }
+}
+
+@keyframes move2 {
+  from {
+    transform: translate(40%, -30%);
+  }
+  to {
+    transform: translate(-40%, 30%);
+  }
+}
+
+@keyframes move3 {
+  from {
+    transform: translate(-10%, 40%);
+  }
+  to {
+    transform: translate(10%, -40%);
+  }
+}
+
 .overhaul {
   z-index: -1;
   width: 100%;
@@ -83,4 +165,37 @@ h1 {
 
 .animate-fade-in {
   animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 10px #3b82f6, 0 0 20px #a855f7;
+    color: #fff;
+  }
+  50% {
+    text-shadow: 0 0 20px #ec4899, 0 0 30px #a855f7;
+    color: #e2e8f0;
+  }
+}
+
+.glow-text {
+  animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background: linear-gradient(270deg, #3b82f6, #a855f7, #ec4899);
+  background-size: 200% 200%;
+  animation: gradientShift 5s ease infinite;
 }
