@@ -54,26 +54,37 @@
     <main
       class="flex flex-col items-center justify-center min-h-screen relative z-10 px-8"
     >
-      <div class="mb-10 text-center">
+      <div class="mb-10 text-center flex flex-col items-center gap-2">
+        <img
+          src="images/default.png"
+          alt="Logo serveur"
+          class="w-16 h-16 rounded-lg shadow-lg animate-logo mb-2"
+        />
         <h2
-          class="text-2xl font-semibold tracking-wide text-gray-300 mb-2 animate-fade-in"
+          class="text-2xl font-semibold tracking-wide text-gray-300 animate-fade-in"
         >
           Bienvenue sur
         </h2>
         <h1
           id="title"
-          class="text-5xl font-extrabold tracking-tight text-white mb-2"
+          class="text-5xl font-extrabold tracking-tight text-white mb-2 drop-shadow-lg"
         >
-          Serveur Garry's Mod
+          Servername
         </h1>
-      </div>
-      <div class="w-full max-w-xl flex flex-col items-center">
         <div
-          class="w-full bg-gray-800 border border-blue-900 rounded-none shadow-lg h-10 flex items-center relative"
+          id="subtitle"
+          class="text-base text-gray-400 font-medium animate-subtitle"
+        >
+          Chargement des ressources, veuillez patienter...
+        </div>
+      </div>
+      <div class="w-full max-w-xl flex flex-col items-center gap-4">
+        <div
+          class="w-full bg-gray-800 border border-blue-900 rounded-xl shadow-2xl h-12 flex items-center relative overflow-hidden animate-bar"
         >
           <div
             id="progress-bar"
-            class="h-full transition-all duration-700 bg-gradient-to-r from-blue-700 to-blue-400"
+            class="h-full transition-all duration-700 bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400 shadow-bar"
             style="width: 0%"
             role="progressbar"
             aria-valuenow="0"
@@ -82,13 +93,19 @@
           ></div>
           <span
             id="progress-text"
-            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-lg font-bold text-white"
+            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-lg font-bold text-white drop-shadow"
             >0%</span
           >
         </div>
         <div
+          id="progress-desc"
+          class="text-sm text-gray-300 font-light animate-desc"
+        >
+          Initialisation...
+        </div>
+        <div
           id="history"
-          class="w-full mt-6 text-left text-gray-400 text-sm"
+          class="w-full mt-2 text-left text-gray-400 text-sm"
         ></div>
       </div>
     </main>
