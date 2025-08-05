@@ -10,10 +10,17 @@ var percentage = 0;
 /**
  * Gmod Called functions
  */
-function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode) {
+function GameDetails(
+  servername,
+  serverurl,
+  mapname,
+  maxplayers,
+  steamid,
+  gamemode
+) {
   debug("GameDetails called");
   isGmod = true;
-  
+
   if (!isTest) {
     loadAll();
   }
@@ -52,7 +59,10 @@ function SetFilesNeeded(needed) {
 
 function setLoad(percentage) {
   debug(percentage + "%");
-  $("#progress-bar").css("width", percentage + "%").attr("aria-valuenow", percentage);
+  $("#progress-bar")
+    .css("width", percentage + "%")
+    .attr("aria-valuenow", percentage);
+  $("#progress-text").text(Math.round(percentage) + "%");
 }
 
 var fileCount = 0;
@@ -60,24 +70,28 @@ function DownloadingFile(filename) {
   filename = filename.replace("'", "").replace("?", "");
   debug("DownloadingFile called '" + filename + "'");
   downloadingFileCalled = true;
-  $("#history").prepend('<div class="history-item">' + filename + "</div>");
-  $(".history-item").each(function(i, el) {
-    if (i > 10) {
+  $("#history").prepend(
+    '<div class="history-item-modern">' + filename + "</div>"
+  );
+  $(".history-item-modern").each(function (i, el) {
+    if (i > 6) {
       $(el).remove();
     }
-    $(el).css("opacity", "" + 1 - i * 0.1);
+    $(el).css("opacity", "" + 1 - i * 0.15);
   });
 }
 
 var allow_increment = true;
 function SetStatusChanged(status) {
   debug("SetStatusChanged called '" + status + "'");
-  $("#history").prepend('<div class="history-item">' + status + "</div>");
-  $(".history-item").each(function(i, el) {
-    if (i > 10) {
+  $("#history").prepend(
+    '<div class="history-item-modern">' + status + "</div>"
+  );
+  $(".history-item-modern").each(function (i, el) {
+    if (i > 6) {
       $(el).remove();
     }
-    $(el).css("opacity", "" + 1 - i * 0.1);
+    $(el).css("opacity", "" + 1 - i * 0.15);
   });
   if (status === "Workshop Complete") {
     allow_increment = false;
@@ -102,7 +116,7 @@ function loadAll() {
   $("nav").fadeIn();
   $("main").fadeIn();
 
-  setTimeout(function() {
+  setTimeout(function () {
     debug("Checking if first time loading.. " + downloadingFileCalled);
     if (downloadingFileCalled) {
       announce(
@@ -137,13 +151,17 @@ function debug(message) {
   }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   loadBackground();
 
-  if (Config.announceMessages && Config.enableAnnouncements && Config.announcementLength) {
+  if (
+    Config.announceMessages &&
+    Config.enableAnnouncements &&
+    Config.announcementLength
+  ) {
     if (Config.announceMessages.length > 0) {
       var i = 0;
-      setInterval(function() {
+      setInterval(function () {
         announce(Config.announceMessages[i]);
         i++;
         if (i > Config.announceMessages.length - 1) {
@@ -153,7 +171,7 @@ $(document).ready(function() {
     }
   }
 
-  setTimeout(function() {
+  setTimeout(function () {
     if (!isGmod) {
       debug("No Garry's mod testing..");
       isTest = true;
@@ -172,7 +190,7 @@ $(document).ready(function() {
       SetFilesTotal(totalTestFiles);
 
       var needed = totalTestFiles;
-      setInterval(function() {
+      setInterval(function () {
         if (needed > 0) {
           needed = needed - 1;
           SetFilesNeeded(needed);

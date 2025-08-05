@@ -19,18 +19,17 @@
     <link rel="icon" href="images/favicon.ico" />
     <meta name="description" content="Custom Garry's Mod loading screen" />
     <meta property="og:title" content="Loading Screen" />
-    <meta property="og:description" content="Custom Garry's Mod loading screen" />
+    <meta
+      property="og:description"
+      content="Custom Garry's Mod loading screen"
+    />
     <meta property="og:image" content="images/default.png" />
     <title>Loading Screen | By Exsite</title>
   </head>
-  <body class="font-[Inter] bg-gray-900 text-white min-h-screen relative overflow-hidden">
-    <div class="background"></div>
-    <div class="overhaul"></div>
-    <div class="effects">
-      <div class="shape one"></div>
-      <div class="shape two"></div>
-      <div class="shape three"></div>
-    </div>
+  <body
+    class="font-[Inter] bg-gray-900 text-white min-h-screen relative overflow-hidden"
+  >
+    <div class="modern-bg"></div>
 
     <div id="mapName" class="absolute top-8 left-8 text-xl">
       Map: <span id="mapNameValue"></span>
@@ -38,17 +37,23 @@
 
     <div id="debug"></div>
 
-    <main class="flex flex-col items-center justify-center min-h-screen space-y-6 relative z-10">
-      <div class="title mb-6 space-y-2 text-center">
-        <h2 class="text-2xl font-semibold animate-fade-in">Bienvenu sur,</h2>
-        <h1 id="title" class="text-5xl font-extrabold glow-text"></h1>
-        <div id="history"></div>
+    <main
+      class="flex flex-col items-start justify-center min-h-screen relative z-10 px-8"
+    >
+      <div class="title-modern mb-8">
+        <h2 class="text-2xl font-semibold animate-fade-in text-left">
+          Bienvenue sur
+        </h2>
+        <h1
+          id="title"
+          class="text-5xl font-extrabold text-left modern-title"
+        ></h1>
       </div>
-      <div class="loading-box w-3/4 md:w-1/2">
-        <div class="w-full bg-gray-700 rounded-2xl shadow-xl overflow-hidden">
+      <div class="loading-container">
+        <div class="loading-bar-bg">
           <div
             id="progress-bar"
-            class="h-4 transition-all animate-gradient rounded-2xl"
+            class="loading-bar"
             role="progressbar"
             style="width: 0%"
             aria-valuenow="0"
@@ -56,6 +61,8 @@
             aria-valuemax="100"
           ></div>
         </div>
+        <div id="progress-text" class="progress-text">0%</div>
+        <div id="history" class="history-modern"></div>
       </div>
     </main>
 
