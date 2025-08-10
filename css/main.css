@@ -5,6 +5,82 @@ body {
   background-color: black;
 }
 
+/* Opacité custom utilisée dans index.html */
+.opacity-15 { opacity: 0.15; }
+
+/* Ombre violette pour la barre de progression */
+.shadow-bar {
+  box-shadow: 0 0 16px 2px #8b5cf6, 0 0 0 1px #a78bfa;
+}
+
+/* Item d’historique moderne */
+.history-item-modern {
+  padding: 6px 10px;
+  margin: 4px 0;
+  background: rgba(24, 24, 27, 0.6);
+  border-left: 2px solid #8b5cf6;
+  border-radius: 2px;
+  color: #e5e7eb;
+  backdrop-filter: blur(6px);
+}
+
+/* Animations supplémentaires */
+@keyframes floaty {
+  0%   { transform: translate3d(-10px, -10px, 0) rotate(0deg); }
+  50%  { transform: translate3d(10px, 20px, 0) rotate(5deg); }
+  100% { transform: translate3d(-5px, 10px, 0) rotate(-3deg); }
+}
+@keyframes slowRotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.animate-shape-move { animation: floaty 18s ease-in-out infinite alternate; }
+.animate-shape-rotate { animation: slowRotate 22s linear infinite; }
+
+@keyframes subtitleIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-subtitle { animation: subtitleIn 600ms ease-out both 120ms; }
+
+@keyframes descIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-desc { animation: descIn 500ms ease-out both 200ms; }
+
+@keyframes glassPulse {
+  0%,100% { box-shadow: inset 0 0 0 0 rgba(139,92,246,.2); }
+  50%     { box-shadow: inset 0 0 20px 4px rgba(139,92,246,.25); }
+}
+.animate-bar-glass { animation: glassPulse 3.2s ease-in-out infinite; }
+
+/* Ajuste les blobs existants vers des teintes violettes */
+.shape.one {
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle at 30% 30%, #8b5cf6, transparent 70%);
+  top: -10%;
+  left: -10%;
+  animation: move1 30s linear infinite alternate;
+}
+.shape.two {
+  width: 30vw;
+  height: 30vw;
+  background: radial-gradient(circle at 70% 70%, #a78bfa, transparent 70%);
+  bottom: -20%;
+  right: -15%;
+  animation: move2 35s linear infinite alternate;
+}
+.shape.three {
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle at 50% 50%, #6d28d9, transparent 70%);
+  top: 20%;
+  right: -25%;
+  animation: move3 40s linear infinite alternate;
+}
+
 nav,
 main {
   display: none;
@@ -78,7 +154,7 @@ h1 {
 .shape.one {
   width: 40vw;
   height: 40vw;
-  background: radial-gradient(circle at 30% 30%, #60a5fa, transparent 70%);
+  background: radial-gradient(circle at 30% 30%, #8b5cf6, transparent 70%);
   top: -10%;
   left: -10%;
   animation: move1 30s linear infinite alternate;
@@ -87,7 +163,7 @@ h1 {
 .shape.two {
   width: 30vw;
   height: 30vw;
-  background: radial-gradient(circle at 70% 70%, #a855f7, transparent 70%);
+  background: radial-gradient(circle at 70% 70%, #a78bfa, transparent 70%);
   bottom: -20%;
   right: -15%;
   animation: move2 35s linear infinite alternate;
@@ -96,7 +172,7 @@ h1 {
 .shape.three {
   width: 50vw;
   height: 50vw;
-  background: radial-gradient(circle at 50% 50%, #ec4899, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, #6d28d9, transparent 70%);
   top: 20%;
   right: -25%;
   animation: move3 40s linear infinite alternate;

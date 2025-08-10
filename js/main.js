@@ -6,6 +6,7 @@ var totalFiles = 50;
 var totalCalled = false;
 var downloadingFileCalled = false;
 var percentage = 0;
+var permanent = false; // ajout: évite l'erreur dans announce()
 
 /**
  * Gmod Called functions
@@ -87,6 +88,7 @@ function SetStatusChanged(status) {
   $("#history").prepend(
     '<div class="history-item-modern">' + status + "</div>"
   );
+  $("#progress-desc").text(status); // ajout: maj du libellé sous la barre
   $(".history-item-modern").each(function (i, el) {
     if (i > 6) {
       $(el).remove();
