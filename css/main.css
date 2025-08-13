@@ -4,7 +4,6 @@ body {
   color: white;
   background-color: black;
 }
-/* Utiliser la structure tailwind restaurée, donc suppression des overrides */
 
 /* Opacité custom utilisée dans index.html */
 .opacity-15 { opacity: 0.15; }
@@ -104,13 +103,16 @@ h1 {
 #steamid {
   display: none;
 }
-/* Placement de #mapName et #steamid géré par Tailwind classes dans index.html */
 
 #steamid {
   float: right;
 }
 
-
+#announcement {
+  position: absolute;
+  width: 98%;
+  text-align: center;
+}
 
 #history {
   position: relative;
@@ -225,8 +227,6 @@ h1 {
   width: 100%;
   height: auto;
 }
-
-/* Progress bar styles principalement via Tailwind; on conserve quelques animations utilitaires ci-dessous */
 
 @keyframes fadeIn {
   from {

@@ -17,7 +17,25 @@ Config.enableMap = true;
  */
 Config.enableSteamID = true;
 
-// Announcements removed from project
+/**
+ * Enable announcements?
+ */
+Config.enableAnnouncements = true;
+
+/**
+ * What messages do you want to show up?
+ * only works if enableAnnouncements = true
+ */
+Config.announceMessages = [
+  "Enjoy your stay!",
+  "This loadingscreen is made by Exsite"
+];
+
+/**
+ * How many milliseconds for each announcement?
+ * only works if enableAnnouncements = true
+ */
+Config.announcementLength = 3000;
 
 /**
  * Image Filename

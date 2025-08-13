@@ -9,7 +9,7 @@
         '<link rel="stylesheet" href="css/main.css?' + Math.random() + '">'
       );
     </script>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -54,11 +54,11 @@
       ></div>
     </div>
 
-  <div id="mapName" class="absolute top-8 left-8 text-xl">
+    <div id="mapName" class="absolute top-8 left-8 text-xl">
       Map: <span id="mapNameValue"></span>
     </div>
-  <div id="steamid" class="absolute top-8 right-8 text-sm text-violet-200"></div>
-    
+    <div id="steamid" class="absolute top-8 right-8 text-sm text-violet-200"></div>
+    <div id="announcement" class="hidden"></div>
 
     <div id="debug"></div>
 
@@ -91,7 +91,7 @@
         >
           <div
             id="progress-bar"
-            class="h-full transition-all duration-700 bg-gradient-to-r from-violet-400 via-fuchsia-600 to-violet-400 shadow-bar"
+            class="h-full transition-all duration-700 bg-gradient-to-r from-violet-400 via-fuchsia-600 to-indigo-700 shadow-bar"
             style="
               width: 0%;
               border-radius: 0;
@@ -120,7 +120,10 @@
         ></div>
       </div>
     </main>
-    <script src="js/lib/jquery-3.4.1.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- Librairie Anime.js pour les animations avancées -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script type="text/javascript">
       document.write(
         '<script src="js/config.js?' + Math.random() + '"><\/script>'
