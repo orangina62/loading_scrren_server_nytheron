@@ -20,7 +20,7 @@ Config.enableSteamID = true;
 /**
  * Enable announcements?
  */
-Config.enableAnnouncements = true;
+Config.enableAnnouncements = false;
 
 /**
  * What messages do you want to show up?
