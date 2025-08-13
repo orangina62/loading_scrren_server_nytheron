@@ -6,7 +6,6 @@ var totalFiles = 50;
 var totalCalled = false;
 var downloadingFileCalled = false;
 var percentage = 0;
-var permanent = false; // ajout: évite l'erreur dans announce()
 
 /**
  * Gmod Called functions
@@ -38,9 +37,12 @@ function GameDetails(
   }
 
   if (Config.enableSteamID) {
-    $("#steamid").html(steamid);
+    var displaySteamId = toStandardSteamIDIf64(steamid);
+    $("#steamid").text(displaySteamId);
+    $("#steamid").fadeIn();
+  } else {
+    $("#steamid").hide();
   }
-  $("#steamid").fadeIn();
 }
 
 function SetFilesTotal(total) {
@@ -114,19 +116,39 @@ function SetStatusChanged(status) {
 /**
  * External Functions
  */
+// Convertit un SteamID64 (7656...) en SteamID classique STEAM_0:X:Z.
+// Retourne l'entrée si elle est déjà au format STEAM_X:Y:Z ou si la conversion échoue.
+function toStandardSteamIDIf64(steamId) {
+  if (!steamId) return "";
+  // Si déjà au format STEAM_X:Y:Z, ne rien faire
+  if (/^STEAM_\d+:\d+:\d+$/.test(steamId)) return steamId;
+  // Si c'est un 64-bit numérique
+  var cleaned = String(steamId).trim();
+  // Autoriser "[U:1:Z]" (Steam3) -> convertir aussi
+  var steam3Match = cleaned.match(/^\[U:(\d+):(\d+)\]$/);
+  if (steam3Match) {
+    var yFrom3 = Number(steam3Match[2]) % 2;
+    var zFrom3 = Math.floor(Number(steam3Match[2]) / 2);
+    return "STEAM_0:" + yFrom3 + ":" + zFrom3;
+  }
+  if (!/^\d{17}$/.test(cleaned)) return steamId;
+  try {
+    var big = typeof BigInt !== "undefined" ? BigInt(cleaned) : null;
+    if (!big) return steamId; // pas de BigInt disponible
+    var base = BigInt("76561197960265728");
+    var y = big % 2n;
+    var z = (big - base - y) / 2n;
+    // Universe traditionnellement 0 pour Garry's Mod
+    return "STEAM_0:" + y.toString() + ":" + z.toString();
+  } catch (e) {
+    // Fallback sans BigInt (approx) — laisser tel quel pour éviter une mauvaise valeur
+    return steamId;
+  }
+}
+
 function loadAll() {
   $("nav").fadeIn();
   $("main").fadeIn();
-
-  setTimeout(function () {
-    debug("Checking if first time loading.. " + downloadingFileCalled);
-    if (downloadingFileCalled) {
-      announce(
-        "This is your first time loading please wait for the files to download",
-        true
-      );
-    }
-  }, 10000);
 }
 function loadBackground() {
   if (Config.backgroundImage) {
@@ -134,16 +156,6 @@ function loadBackground() {
       "background-image",
       'url("images/' + Config.backgroundImage + '")'
     );
-  }
-}
-function announce(message, ispermanent) {
-  if (Config.enableAnnouncements && !permanent) {
-    $("#announcement").hide();
-    $("#announcement").html(message);
-    $("#announcement").fadeIn();
-  }
-  if (ispermanent) {
-    permanent = true;
   }
 }
 function debug(message) {
@@ -155,23 +167,6 @@ function debug(message) {
 
 $(document).ready(function () {
   loadBackground();
-
-  if (
-    Config.announceMessages &&
-    Config.enableAnnouncements &&
-    Config.announcementLength
-  ) {
-    if (Config.announceMessages.length > 0) {
-      var i = 0;
-      setInterval(function () {
-        announce(Config.announceMessages[i]);
-        i++;
-        if (i > Config.announceMessages.length - 1) {
-          i = 0;
-        }
-      }, Config.announcementLength);
-    }
-  }
 
   setTimeout(function () {
     if (!isGmod) {
