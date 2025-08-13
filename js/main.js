@@ -116,34 +116,76 @@ function SetStatusChanged(status) {
 /**
  * External Functions
  */
-// Convertit un SteamID64 (7656...) en SteamID classique STEAM_0:X:Z.
-// Retourne l'entrée si elle est déjà au format STEAM_X:Y:Z ou si la conversion échoue.
+// Convertit un SteamID64 (7656...) en STEAM_0:X:Z sans BigInt (compat moteurs anciens)
 function toStandardSteamIDIf64(steamId) {
   if (!steamId) return "";
-  // Si déjà au format STEAM_X:Y:Z, ne rien faire
   if (/^STEAM_\d+:\d+:\d+$/.test(steamId)) return steamId;
-  // Si c'est un 64-bit numérique
-  var cleaned = String(steamId).trim();
-  // Autoriser "[U:1:Z]" (Steam3) -> convertir aussi
-  var steam3Match = cleaned.match(/^\[U:(\d+):(\d+)\]$/);
-  if (steam3Match) {
-    var yFrom3 = Number(steam3Match[2]) % 2;
-    var zFrom3 = Math.floor(Number(steam3Match[2]) / 2);
-    return "STEAM_0:" + yFrom3 + ":" + zFrom3;
+  var s = String(steamId).trim();
+  // Steam3 -> classique
+  var steam3 = s.match(/^\[U:(\d+):(\d+)\]$/);
+  if (steam3) {
+    var accountId3 = parseInt(steam3[2], 10);
+    var y3 = accountId3 % 2;
+    var z3 = (accountId3 - y3) / 2;
+    return "STEAM_0:" + y3 + ":" + z3;
   }
-  if (!/^\d{17}$/.test(cleaned)) return steamId;
-  try {
-    var big = typeof BigInt !== "undefined" ? BigInt(cleaned) : null;
-    if (!big) return steamId; // pas de BigInt disponible
-    var base = BigInt("76561197960265728");
-    var y = big % 2n;
-    var z = (big - base - y) / 2n;
-    // Universe traditionnellement 0 pour Garry's Mod
-    return "STEAM_0:" + y.toString() + ":" + z.toString();
-  } catch (e) {
-    // Fallback sans BigInt (approx) — laisser tel quel pour éviter une mauvaise valeur
-    return steamId;
+  if (!/^\d{17}$/.test(s)) return steamId;
+
+  // Opérations 64-bit sur chaînes: z = (steamID64 - 76561197960265728 - y) / 2
+  var base = "76561197960265728";
+  var y = parseInt(s.charAt(s.length - 1), 10) % 2; // parité
+  var sub1 = subDecStrings(s, base);
+  var sub2 = subDecStrings(sub1, String(y));
+  var zStr = div2DecString(sub2);
+  // enlever zéros en tête
+  zStr = zStr.replace(/^0+/, "");
+  if (zStr === "") zStr = "0";
+  return "STEAM_0:" + y + ":" + zStr;
+}
+
+// Soustraction décimale de grandes chaînes: a - b (a>=b), retourne chaîne
+function subDecStrings(a, b) {
+  a = a.replace(/^0+/, "");
+  b = b.replace(/^0+/, "");
+  if (a === "") a = "0";
+  if (b === "") b = "0";
+  // Assurer a >= b, sinon retourner "0"
+  if (cmpDecStrings(a, b) < 0) return "0";
+  var res = [];
+  var carry = 0;
+  var i = a.length - 1;
+  var j = b.length - 1;
+  while (i >= 0 || j >= 0) {
+    var da = i >= 0 ? a.charCodeAt(i) - 48 : 0;
+    var db = j >= 0 ? b.charCodeAt(j) - 48 : 0;
+    var d = da - db - carry;
+    if (d < 0) { d += 10; carry = 1; } else { carry = 0; }
+    res.push(String.fromCharCode(48 + d));
+    i--; j--;
   }
+  while (res.length > 1 && res[res.length - 1] === '0') res.pop();
+  return res.reverse().join("");
+}
+
+// Division par 2 d'une grande chaîne décimale positive
+function div2DecString(s) {
+  var carry = 0;
+  var out = "";
+  for (var i = 0; i < s.length; i++) {
+    var n = carry * 10 + (s.charCodeAt(i) - 48);
+    var q = Math.floor(n / 2);
+    carry = n % 2;
+    out += String.fromCharCode(48 + q);
+  }
+  return out.replace(/^0+/, "") || "0";
+}
+
+function cmpDecStrings(a, b) {
+  a = a.replace(/^0+/, "");
+  b = b.replace(/^0+/, "");
+  if (a.length !== b.length) return a.length > b.length ? 1 : -1;
+  if (a === b) return 0;
+  return a > b ? 1 : -1;
 }
 
 function loadAll() {
