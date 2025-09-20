@@ -28,6 +28,8 @@
   --color-text-dim: #ffffff;
   --color-white: #ffffff;
   --gradient-accent: linear-gradient(90deg, #00ff6a, #19ff83 40%, #00ff6a 80%);
+  /* Nouveau gradient demandé: noir > vert > noir (utilisé pour la barre) */
+  --gradient-progress: linear-gradient(90deg, #000000 0%, #00ff6a 50%, #000000 100%);
   --gradient-accent-diag: linear-gradient(135deg, #0d1510 10%, #042e18 40%, #00ff6a22 70%);
   --shadow-glow: 0 0 8px #00ff6a, 0 0 18px #19ff83, 0 0 2px #00ff6a inset;
 }
@@ -297,7 +299,25 @@ h1 { margin-top: 10px; color: var(--color-white); font-size: 3em; text-shadow: 0
 }
 
 /* Progress bar inner gradient override */
-#progress-bar { background: var(--gradient-accent); box-shadow: var(--shadow-glow); }
+#progress-bar { background: var(--gradient-progress); box-shadow: var(--shadow-glow); position: relative; overflow: hidden; }
+/* léger bruit / texture scan en overlay pour la barre */
+#progress-bar:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(45deg, rgba(0,255,106,0.15) 0 6px, transparent 6px 12px);
+  mix-blend-mode: overlay;
+  opacity: 0.25;
+  animation: shift 8s linear infinite;
+}
+@keyframes shift { to { transform: translateX(50%); } }
+
+/* Font style Metro 2033 like */
+.metro-font {
+  font-family: 'Tektur', 'Russo One', 'Inter', sans-serif !important;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
 
 /* Texte secondaire & steamid dans la nouvelle teinte */
 #progress-desc, #steamid, #mapName, #mapNameValue { color: var(--color-text-dim); }
