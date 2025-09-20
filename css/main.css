@@ -320,7 +320,22 @@ h1 { margin-top: 10px; color: var(--color-white); font-size: 3em; text-shadow: 0
 /* Texte secondaire & steamid dans la nouvelle teinte */
 #progress-desc, #steamid, #mapName, #mapNameValue { color: var(--color-text-dim); }
 /* Titres accentués */
-#title { color: var(--color-white); text-shadow: 0 0 18px rgba(0,255,106,0.6), 0 0 4px rgba(0,255,106,0.4); }
+#title {
+  color: var(--color-white);
+  text-shadow: 0 0 18px rgba(0,255,106,0.6), 0 0 4px rgba(0,255,106,0.4);
+  font-size: clamp(2.2rem, 6vw, 4rem); /* limite la croissance */
+  line-height: 1.05;
+  max-width: 90vw;
+  max-inline-size: 1150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Si très petit écran, réduire un peu plus */
+@media (max-width: 480px) {
+  #title { font-size: clamp(1.8rem, 9vw, 2.8rem); }
+}
 
 /* Sous-titre animé couleur accent */
 .subtitle-accent { color: var(--color-accent-alt); text-shadow: 0 0 8px rgba(0,255,106,0.4); }

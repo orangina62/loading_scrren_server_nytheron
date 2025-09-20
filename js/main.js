@@ -41,6 +41,9 @@ function GameDetails(
     $("#steamid").html(steamid);
   }
   $("#steamid").fadeIn();
+
+  // Ajuster taille du titre après injection
+  adjustTitleSize();
 }
 
 function SetFilesTotal(total) {
@@ -153,6 +156,24 @@ function debug(message) {
   }
 }
 
+// Réduit la taille du titre si trop large pour l'écran/viewport
+function adjustTitleSize() {
+  var $title = $("#title");
+  if (!$title.length) return;
+  var maxWidth = Math.min($(window).width() - 64, 1150); // marge latérale
+  var iteration = 0;
+  while ($title.outerWidth() > maxWidth && iteration < 10) {
+    var current = parseFloat($title.css("font-size"));
+    if (current <= 18) break; // limite basse sécurité
+    $title.css("font-size", (current * 0.92) + "px");
+    iteration++;
+  }
+  // recalc largeur barre si fonction dispo
+  if (typeof syncProgressWidth === 'function') {
+    syncProgressWidth();
+  }
+}
+
 $(document).ready(function () {
   loadBackground();
 
@@ -170,6 +191,8 @@ $(document).ready(function () {
   }
   setTimeout(syncProgressWidth, 150); // après première paint
   $(window).on("resize", syncProgressWidth);
+  $(window).on("resize", adjustTitleSize);
+  setTimeout(adjustTitleSize, 120);
 
   if (
     Config.announceMessages &&
