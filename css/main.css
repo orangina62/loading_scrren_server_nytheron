@@ -40,6 +40,10 @@ body {
   margin: 0;
   color: var(--color-text);
   background-color: var(--color-bg);
+/* Application globale de la police pour tous les éléments textuels */
+html, body, h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol, button, input, textarea, label, small, strong, em, code {
+  font-family: var(--font-main) !important;
+}
   background-image: radial-gradient(circle at 30% 20%, #063a23 0%, transparent 60%),
     radial-gradient(circle at 70% 80%, #042717 0%, transparent 65%);
   background-attachment: fixed;
