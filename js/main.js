@@ -7,6 +7,7 @@ var totalCalled = false;
 var downloadingFileCalled = false;
 var percentage = 0;
 var permanent = false; // ajout: évite l'erreur dans announce()
+var lastTier = -1;
 
 /**
  * Gmod Called functions
@@ -67,6 +68,32 @@ function setLoad(percentage) {
     .css("width", percentage + "%")
     .attr("aria-valuenow", percentage);
   $("#progress-text").text(Math.round(percentage) + "%");
+  updateProgressEffects(percentage);
+}
+
+function updateProgressEffects(p) {
+  var $bar = $("#progress-bar");
+  var $wrap = $("#progress-wrapper");
+  // retirer états précédents
+  $bar.removeClass("pb-state-0 pb-state-25 pb-state-50 pb-state-75 pb-state-90 pb-state-98 pb-finished");
+  if (p >= 100) {
+    $bar.addClass("pb-finished");
+    return;
+  }
+  if (p >= 98) { $bar.addClass("pb-state-98"); }
+  else if (p >= 90) { $bar.addClass("pb-state-90"); }
+  else if (p >= 75) { $bar.addClass("pb-state-75"); }
+  else if (p >= 50) { $bar.addClass("pb-state-50"); }
+  else if (p >= 25) { $bar.addClass("pb-state-25"); }
+  else { $bar.addClass("pb-state-0"); }
+
+  // ripple sur changements de tranche de 25%
+  var tier = Math.floor(p / 25);
+  if (tier !== lastTier) {
+    lastTier = tier;
+    $wrap.addClass("ripple");
+    setTimeout(function(){ $wrap.removeClass("ripple"); }, 1800);
+  }
 }
 
 var fileCount = 0;
@@ -75,7 +102,7 @@ function DownloadingFile(filename) {
   debug("DownloadingFile called '" + filename + "'");
   downloadingFileCalled = true;
   $("#history").prepend(
-    '<div class="history-item-modern">' + filename + "</div>"
+    '<div class="history-item-modern flash">' + filename + "</div>"
   );
   $(".history-item-modern").each(function (i, el) {
     if (i > 6) {
@@ -83,6 +110,7 @@ function DownloadingFile(filename) {
     }
     $(el).css("opacity", "" + 1 - i * 0.15);
   });
+  setTimeout(function(){ $(".history-item-modern.flash").removeClass("flash"); }, 700);
 }
 
 var allow_increment = true;
@@ -101,11 +129,16 @@ function SetStatusChanged(status) {
   if (status === "Workshop Complete") {
     allow_increment = false;
     setLoad(80);
+    $("#progress-wrapper").addClass("status-hot");
+    setTimeout(function(){ $("#progress-wrapper").removeClass("status-hot"); }, 1600);
   } else if (status === "Client info sent!") {
     allow_increment = false;
     setLoad(95);
+    $("#progress-wrapper").addClass("status-hot");
+    setTimeout(function(){ $("#progress-wrapper").removeClass("status-hot"); }, 1600);
   } else if (status === "Starting Lua...") {
     setLoad(100);
+    $("#progress-wrapper").addClass("status-hot");
   } else {
     if (allow_increment) {
       percentage = percentage + 0.1;
