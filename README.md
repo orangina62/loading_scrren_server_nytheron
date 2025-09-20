@@ -41,5 +41,3 @@ Le chargement des ressources et la progression restent gérés par `js/main.js`.
 
 ---
 Si vous souhaitez ajouter un mode clair ou une autre couleur (ex: cyan ou magenta), créez un nouveau bloc `:root[data-theme="alt"] { ... }` et appliquez `document.documentElement.dataset.theme = 'alt';` dans un script.
-
-
