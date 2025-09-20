@@ -400,7 +400,7 @@ h1 { margin-top: 10px; color: var(--color-white); font-size: 3em; text-shadow: 0
 }
 @keyframes finishedPulse {
   0% { filter: brightness(1); }
-  40% { filter: brightness(1.35); }
+  40% { filter: brightness(1.35); } 
   100% { filter: brightness(1); }
 }
 @keyframes glowPersist {
