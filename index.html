@@ -59,6 +59,9 @@
     <main
       class="flex flex-col items-center justify-center min-h-screen relative z-10 px-8"
     >
+      <!-- Overlay bruit léger -->
+      <div id="noise"></div>
+      <div class="loading-core w-full flex flex-col items-center">
       <div class="mb-10 text-center">
         <h2
           class="text-2xl font-semibold tracking-wide animate-fade-in mb-2 glow-text"
@@ -78,7 +81,7 @@
           Chargement des ressources, veuillez patienter...
         </div>
       </div>
-      <div class="w-full max-w-xl flex flex-col items-center gap-4">
+      <div class="w-full max-w-xl flex flex-col items-center gap-4 core-lists">
         <div
           id="progress-wrapper"
           class="backdrop-blur-md shadow-lg flex items-center relative overflow-hidden animate-bar-glass progress-container-green progress-wrapper"
@@ -113,6 +116,7 @@
           id="history"
           class="w-full mt-2 text-left text-sm"
         ></div>
+      </div>
       </div>
     </main>
 
