@@ -156,6 +156,21 @@ function debug(message) {
 $(document).ready(function () {
   loadBackground();
 
+  // Ajuste la largeur de la progress bar sur celle du titre (après rendu / font load)
+  function syncProgressWidth() {
+    var $title = $("#title");
+    var $wrapper = $("#progress-wrapper");
+    if ($title.length && $wrapper.length) {
+      // marge interne + sécurité
+      var target = $title.outerWidth() + 40; // 20px padding de chaque côté
+      // limite max pour éviter débordement sur petits écrans
+      var max = Math.min(target, $(window).width() - 48);
+      $wrapper.css("width", max + "px");
+    }
+  }
+  setTimeout(syncProgressWidth, 150); // après première paint
+  $(window).on("resize", syncProgressWidth);
+
   if (
     Config.announceMessages &&
     Config.enableAnnouncements &&
