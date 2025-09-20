@@ -29,7 +29,7 @@
   --color-white: #ffffff;
   --gradient-accent: linear-gradient(90deg, #00ff6a, #19ff83 40%, #00ff6a 80%);
   /* Nouveau gradient demandé: noir > vert > noir (utilisé pour la barre) */
-  --gradient-progress: linear-gradient(90deg, #000000 0%, #00ff6a 50%, #000000 100%);
+  --gradient-progress: linear-gradient(90deg, #000000 0%, #00ff6a 50%, #006800 100%);
   --gradient-accent-diag: linear-gradient(135deg, #0d1510 10%, #042e18 40%, #00ff6a22 70%);
   --shadow-glow: 0 0 8px #00ff6a, 0 0 18px #19ff83, 0 0 2px #00ff6a inset;
 }
