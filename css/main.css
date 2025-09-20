@@ -24,8 +24,8 @@
   --color-accent-alt: #19ff83;
   --color-accent-fade: rgba(0, 255, 106, 0.2);
   --color-accent-fade-strong: rgba(0, 255, 106, 0.55);
-  --color-text: #e7fbef;
-  --color-text-dim: #9fb7a8;
+  --color-text: #ffffff;
+  --color-text-dim: #ffffff;
   --color-white: #ffffff;
   --gradient-accent: linear-gradient(90deg, #00ff6a, #19ff83 40%, #00ff6a 80%);
   --gradient-accent-diag: linear-gradient(135deg, #0d1510 10%, #042e18 40%, #00ff6a22 70%);
